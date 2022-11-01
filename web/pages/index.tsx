@@ -1,6 +1,6 @@
 // <link rel="icon" href="/favicon.ico" />
 
-// Next - utilzia o conceito de SSR - Server Side Rendering
+// Next - utiliza o conceito de SSR - Server Side Rendering
 
 interface HomeProps {
   count: number
