@@ -12,14 +12,19 @@
   },
   "author": "",
   "license": "ISC",
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
   "bugs": {
     "url": "https://github.com/clowdcap/nlw-rocketseat/issues"
   },
   "homepage": "https://github.com/clowdcap/nlw-rocketseat#readme",
   "devDependencies": {
     "@mermaid-js/mermaid-cli": "^9.1.7",
+    "@types/node": "^18.11.9",
     "prisma": "^4.5.0",
     "prisma-erd-generator": "^1.2.2",
+    "ts-node": "^10.9.1",
     "tsx": "^3.11.0",
     "typescript": "^4.8.4"
   },
