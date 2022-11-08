@@ -1,15 +1,16 @@
 import { FastifyInstance } from 'fastify'
 import { z } from 'zod'
 import { prisma } from '../lib/prisma'
-//import { prisma } from '../lib/prisma'
+import fetch from 'node-fetch'
+import  { authenticate } from './../plugins/authenticate'
 
 export async function authRoutes(fastify: FastifyInstance) {
-  fastify.get('/me', async (request) => {
-    await request.jwtVerify()
-
-    return {
-      user: request.user
-    }
+  fastify.get('/me', { onRequest: [authenticate] },
+    async (request) => {
+    // await request.jwtVerify() 
+      return {
+        user: request.user
+      }
   })
 
   fastify.post('/users', async (request) => {
@@ -18,15 +19,15 @@ export async function authRoutes(fastify: FastifyInstance) {
     })
 
     const { access_token } = createPoolBody.parse(request.body)
-  
-    const userRespose = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
+    
+    const userResponse = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${access_token}`
+        Authorization: `Bearer ${access_token}`  
       }
     })
 
-    const userData = await userRespose.json()
+    const userData = await userResponse.json()
 
     const userInfoSchema = z.object({
       id: z.string(),
@@ -60,7 +61,7 @@ export async function authRoutes(fastify: FastifyInstance) {
 
     }, {
       sub: user.id,
-      expiresIn: '2 days'
+      expiresIn: '7 days'
     })
 
     return { token }
