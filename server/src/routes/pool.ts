@@ -32,7 +32,6 @@ export async function poolRoutes(fastify: FastifyInstance) {
               userId: request.user.sub,
             }
           }
-
         }
     })
     } catch {
